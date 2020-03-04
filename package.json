@@ -6,10 +6,15 @@
   "dependencies": {
     "@now/node": "^1.4.1",
     "@types/puppeteer-core": "^2.0.0",
+    "@types/react": "^16.9.23",
+    "@types/react-dom": "^16.9.5",
+    "@types/styled-components": "^5.0.1",
     "chrome-aws-lambda": "^2.1.1",
     "gatsby": "^2.19.28",
+    "gatsby-plugin-typescript": "^2.2.0",
     "puppeteer-core": "^2.1.1",
     "react": "^16.13.0",
-    "react-dom": "^16.13.0"
+    "react-dom": "^16.13.0",
+    "styled-components": "^5.0.1"
   }
 }
