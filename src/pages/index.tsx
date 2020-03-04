@@ -11,6 +11,8 @@ type ApiResult = {
 const GlobalStyle = createGlobalStyle`${css`
   body {
     font-family: "Comic Sans MS";
+    background-color: #1f243e;
+    color: #fff;
   }
 
   input {
@@ -37,13 +39,20 @@ export default () => {
   const [formUrl, setFormUrl] = useState<string>("");
   const [resultsUrl, setResultsUrl] = useState<string>();
   const [results, setResults] = useState<ApiResult>();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setResults(undefined);
+
     if (resultsUrl === undefined) return;
 
+    setIsLoading(true);
     fetch(`/api/allesflexbox?url=${resultsUrl}`)
       .then(res => res.json())
-      .then(json => setResults(json));
+      .then(json => {
+        setIsLoading(false);
+        setResults(json);
+      });
   }, [resultsUrl]);
 
   return (
@@ -73,6 +82,9 @@ export default () => {
         />
         <button>alles flexbox?</button>
       </form>
+
+      {isLoading && <p>aan 't laden ...</p>}
+
       {results && (
         <>
           <h2 style={{ fontWeight: "normal" }}>
