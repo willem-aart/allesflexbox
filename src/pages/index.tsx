@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { createGlobalStyle, css } from "styled-components";
+import CountUp from "react-countup";
 
 type ApiResult = {
   isFlexContainer: boolean;
@@ -115,6 +116,23 @@ export default () => {
             </a>
             :
           </h2>
+
+          <CountUp
+            end={Number(
+              (
+                (results.filter(
+                  element =>
+                    element.isFlexChild ||
+                    element.isFlexContainer ||
+                    element.isDistantFlexChild
+                ).length /
+                  results.length) *
+                100
+              ).toFixed(2)
+            )}
+            suffix={" % flexbox"}
+          />
+
           <dl>
             <dt>DOM-elementen</dt>
             <dd>{results.length} stuks</dd>
