@@ -39,12 +39,18 @@ const GlobalStyle = createGlobalStyle`${css`
 
 const colormap = interpolate(["red", "orange", "yellow", "lightgreen"]);
 
+const yoyoyo = new Audio("/yoyoyo.m4a");
+
 export default () => {
   const [formUrl, setFormUrl] = useState<string>("");
   const [resultsUrl, setResultsUrl] = useState<string>();
   const [results, setResults] = useState<ApiResult>();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string>();
+
+  useEffect(() => {
+    yoyoyo.play();
+  }, []);
 
   useEffect(() => {
     setResults(undefined);
