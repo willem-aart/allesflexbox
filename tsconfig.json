@@ -1,7 +1,12 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
-    "strict": true
+    "strict": true,
+    "noEmitOnError": true,
+    "moduleResolution": "node",
+    "module": "CommonJS",
+    "target": "ES6",
+    "esModuleInterop": true,
+    "lib": ["DOM", "DOM.Iterable", "ES6"],
+    "resolveJsonModule": true
   }
 }
