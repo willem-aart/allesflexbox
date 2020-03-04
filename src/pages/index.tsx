@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { createGlobalStyle, css } from "styled-components";
 import CountUp from "react-countup";
+import interpolate from "color-interpolate";
 
 type ApiResult = {
   isFlexContainer: boolean;
@@ -35,6 +36,8 @@ const GlobalStyle = createGlobalStyle`${css`
     margin-bottom: 1rem;
   }
 `}`;
+
+const colormap = interpolate(["red", "orange", "yellow", "lightgreen"]);
 
 export default () => {
   const [formUrl, setFormUrl] = useState<string>("");
@@ -117,21 +120,39 @@ export default () => {
             :
           </h2>
 
-          <CountUp
-            end={Number(
-              (
-                (results.filter(
-                  element =>
-                    element.isFlexChild ||
-                    element.isFlexContainer ||
-                    element.isDistantFlexChild
-                ).length /
-                  results.length) *
-                100
-              ).toFixed(2)
-            )}
-            suffix={" % flexbox"}
-          />
+          <div
+            style={{
+              fontSize: "2rem",
+              color: colormap(
+                Number(
+                  (
+                    results.filter(
+                      element =>
+                        element.isFlexChild ||
+                        element.isFlexContainer ||
+                        element.isDistantFlexChild
+                    ).length / results.length
+                  ).toFixed(2)
+                )
+              )
+            }}
+          >
+            <CountUp
+              end={Number(
+                (
+                  (results.filter(
+                    element =>
+                      element.isFlexChild ||
+                      element.isFlexContainer ||
+                      element.isDistantFlexChild
+                  ).length /
+                    results.length) *
+                  100
+                ).toFixed(2)
+              )}
+              suffix={"% flexbox"}
+            />
+          </div>
 
           <dl>
             <dt>DOM-elementen</dt>
