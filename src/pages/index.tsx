@@ -39,7 +39,7 @@ const GlobalStyle = createGlobalStyle`${css`
 
 const colormap = interpolate(["red", "orange", "yellow", "lightgreen"]);
 
-const yoyoyo = new Audio("/yoyoyo.m4a");
+const yoyoyo = typeof window !== "undefined" && new Audio("/yoyoyo.m4a");
 
 export default () => {
   const [formUrl, setFormUrl] = useState<string>("");
@@ -49,7 +49,7 @@ export default () => {
   const [error, setError] = useState<string>();
 
   useEffect(() => {
-    typeof window !== "undefined" && yoyoyo.play();
+    yoyoyo && yoyoyo?.play();
   }, []);
 
   useEffect(() => {
