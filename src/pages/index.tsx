@@ -49,7 +49,7 @@ export default () => {
   const [error, setError] = useState<string>();
 
   useEffect(() => {
-    yoyoyo.play();
+    typeof window !== "undefined" && yoyoyo.play();
   }, []);
 
   useEffect(() => {
