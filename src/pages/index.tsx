@@ -47,6 +47,7 @@ export default () => {
 
     if (resultsUrl === undefined) return;
 
+    setError(undefined);
     setIsLoading(true);
     fetch(`/api/allesflexbox?url=${resultsUrl}`)
       .then(res => res.json())
@@ -59,6 +60,10 @@ export default () => {
         setError(`er ging iets gruwelijk fout: ${err}`);
       });
   }, [resultsUrl]);
+
+  useEffect(() => {
+    setError(undefined);
+  }, [formUrl]);
 
   return (
     <>
@@ -105,7 +110,7 @@ export default () => {
         <>
           <h2 style={{ fontWeight: "normal" }}>
             de resultaten voor{" "}
-            <a href={resultsUrl} target="_blank">
+            <a href={resultsUrl} target="_blank" style={{ color: "#eee" }}>
               {resultsUrl}
             </a>
             :
