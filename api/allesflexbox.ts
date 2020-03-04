@@ -1,6 +1,6 @@
 import { NowRequest, NowResponse } from "@now/node";
-import * as chrome from "chrome-aws-lambda";
-import * as puppeteer from "puppeteer-core";
+import chrome from "chrome-aws-lambda";
+import puppeteer from "puppeteer-core";
 
 export default async (request: NowRequest, response: NowResponse) => {
   const browser = await puppeteer.launch({
