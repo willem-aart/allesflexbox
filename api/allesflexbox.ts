@@ -3,6 +3,8 @@ import chrome from "chrome-aws-lambda";
 import puppeteer from "puppeteer-core";
 
 export default async (request: NowRequest, response: NowResponse) => {
+  const url = request.query.url.toString();
+
   const browser = await puppeteer.launch({
     args: chrome.args,
     executablePath: await chrome.executablePath,
@@ -10,7 +12,7 @@ export default async (request: NowRequest, response: NowResponse) => {
   });
 
   const page = await browser.newPage();
-  await page.goto("https://www.example.com/", {
+  await page.goto(url, {
     waitUntil: "networkidle0"
   });
 
