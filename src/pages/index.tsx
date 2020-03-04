@@ -67,9 +67,13 @@ export default () => {
       ).toFixed(2)
     );
 
-    if (percentage === 0) fail && fail.play();
-    if (percentage === 100) win && win.play();
-    if (percentage > 0 && percentage < 100) flex && flex.play();
+    if (percentage === 0) {
+      fail && fail.play();
+    } else if (percentage === 100) {
+      win && win.play();
+    } else {
+      flex && flex.play();
+    }
   }, [results]);
 
   useEffect(() => {
