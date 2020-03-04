@@ -40,6 +40,7 @@ export default () => {
   const [resultsUrl, setResultsUrl] = useState<string>();
   const [results, setResults] = useState<ApiResult>();
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string>();
 
   useEffect(() => {
     setResults(undefined);
@@ -52,6 +53,10 @@ export default () => {
       .then(json => {
         setIsLoading(false);
         setResults(json);
+      })
+      .catch(err => {
+        setIsLoading(false);
+        setError(`er ging iets gruwelijk fout: ${err}`);
       });
   }, [resultsUrl]);
 
@@ -69,6 +74,15 @@ export default () => {
         style={{ marginBottom: "3rem" }}
         onSubmit={e => {
           e.preventDefault();
+
+          if (
+            !formUrl.startsWith("https://") ||
+            !formUrl.startsWith("http://")
+          ) {
+            setError("URL moet met http:// of https:// beginnen");
+            return;
+          }
+
           setResultsUrl(formUrl);
         }}
       >
@@ -85,10 +99,16 @@ export default () => {
 
       {isLoading && <p>aan 't laden ...</p>}
 
+      {error && <p style={{ color: "#ff4c4c" }}>{error}</p>}
+
       {results && (
         <>
           <h2 style={{ fontWeight: "normal" }}>
-            de resultaten voor {resultsUrl}:
+            de resultaten voor{" "}
+            <a href={resultsUrl} target="_blank">
+              {resultsUrl}
+            </a>
+            :
           </h2>
           <dl>
             <dt>DOM-elementen</dt>
