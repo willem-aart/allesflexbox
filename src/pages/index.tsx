@@ -40,6 +40,8 @@ const GlobalStyle = createGlobalStyle`${css`
 const colormap = interpolate(["red", "orange", "yellow", "lightgreen"]);
 
 const yoyoyo = typeof window !== "undefined" && new Audio("/yoyoyo.m4a");
+const fail = typeof window !== "undefined" && new Audio("/fail.m4a");
+const win = typeof window !== "undefined" && new Audio("/win.m4a");
 
 export default () => {
   const [formUrl, setFormUrl] = useState<string>("");
@@ -49,8 +51,24 @@ export default () => {
   const [error, setError] = useState<string>();
 
   useEffect(() => {
-    yoyoyo && yoyoyo?.play();
-  }, []);
+    if (results === undefined) return;
+
+    const percentage = Number(
+      (
+        (results.filter(
+          element =>
+            element.isFlexChild ||
+            element.isFlexContainer ||
+            element.isDistantFlexChild
+        ).length /
+          results.length) *
+        100
+      ).toFixed(2)
+    );
+
+    if (percentage === 0) fail && fail.play();
+    if (percentage === 100) win && win.play();
+  }, [results]);
 
   useEffect(() => {
     setResults(undefined);
@@ -79,7 +97,14 @@ export default () => {
     <>
       <GlobalStyle />
 
-      <h1>yo yo yo, alles flexbox?</h1>
+      <h1
+        style={{ cursor: "pointer" }}
+        onClick={() => {
+          yoyoyo && yoyoyo.play();
+        }}
+      >
+        yo yo yo, alles flexbox?
+      </h1>
 
       <h2 style={{ fontWeight: "normal" }}>
         check <em>hoe flexbox</em> een site is:
