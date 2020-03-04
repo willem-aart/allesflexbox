@@ -76,7 +76,7 @@ export default () => {
           e.preventDefault();
 
           if (
-            !formUrl.startsWith("https://") ||
+            !formUrl.startsWith("https://") &&
             !formUrl.startsWith("http://")
           ) {
             setError("URL moet met http:// of https:// beginnen");
