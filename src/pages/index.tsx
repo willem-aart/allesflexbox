@@ -42,6 +42,7 @@ const colormap = interpolate(["red", "orange", "yellow", "lightgreen"]);
 const yoyoyo = typeof window !== "undefined" && new Audio("/yoyoyo.m4a");
 const fail = typeof window !== "undefined" && new Audio("/fail.m4a");
 const win = typeof window !== "undefined" && new Audio("/win.m4a");
+const flex = typeof window !== "undefined" && new Audio("/flex.m4a");
 
 export default () => {
   const [formUrl, setFormUrl] = useState<string>("");
@@ -68,6 +69,7 @@ export default () => {
 
     if (percentage === 0) fail && fail.play();
     if (percentage === 100) win && win.play();
+    if (percentage > 0 && percentage < 100) flex && flex.play();
   }, [results]);
 
   useEffect(() => {
