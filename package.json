@@ -7,6 +7,9 @@
     "@now/node": "^1.4.1",
     "@types/puppeteer-core": "^2.0.0",
     "chrome-aws-lambda": "^2.1.1",
-    "puppeteer-core": "^2.1.1"
+    "gatsby": "^2.19.28",
+    "puppeteer-core": "^2.1.1",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0"
   }
 }
