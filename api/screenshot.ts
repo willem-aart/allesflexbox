@@ -54,6 +54,8 @@ export default async (request: NowRequest, response: NowResponse) => {
           !isFlexContainer(element.parentElement) &&
           !ancestors.some(isFlexContainer)
         ) {
+          element.setAttribute("style", "border: 3px solid coral");
+        } else {
           element.setAttribute("style", "border: 3px solid lightgreen");
         }
       });
