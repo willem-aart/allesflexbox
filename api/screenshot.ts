@@ -9,7 +9,7 @@ export default async (request: NowRequest, response: NowResponse) => {
     args: chrome.args,
     executablePath: await chrome.executablePath,
     headless: chrome.headless,
-    defaultViewport: { width: 1200 }
+    defaultViewport: { width: 1920, height: 1080 }
   });
 
   const page = await browser.newPage();
