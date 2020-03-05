@@ -103,80 +103,206 @@ export default () => {
     <>
       <GlobalStyle />
 
-      <h1
-        style={{ cursor: "pointer" }}
-        onClick={() => {
-          yoyoyo && yoyoyo.play();
+      <div
+        style={{
+          marginTop: "2rem",
+          padding: "1rem",
+          maxWidth: "60rem",
+          marginLeft: "auto",
+          marginRight: "auto"
         }}
       >
-        yo yo yo, alles flexbox?
-      </h1>
-
-      <h2 style={{ fontWeight: "normal" }}>
-        check <em>hoe flexbox</em> een site is:
-      </h2>
-
-      <form
-        style={{ marginBottom: "3rem" }}
-        onSubmit={e => {
-          e.preventDefault();
-
-          if (
-            !formUrl.startsWith("https://") &&
-            !formUrl.startsWith("http://")
-          ) {
-            setError("URL moet met http:// of https:// beginnen");
-            return;
-          }
-
-          setResultsUrl(formUrl);
-        }}
-      >
-        <input
-          style={{ width: "60%" }}
-          placeholder="URL"
-          value={formUrl}
-          onChange={e => {
-            setFormUrl(e.target.value);
+        <h1
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            yoyoyo && yoyoyo.play();
           }}
-        />
-        <button>alles flexbox?</button>
-      </form>
+        >
+          yo yo yo, alles flexbox?
+        </h1>
 
-      {isLoading && <p>aan 't laden ...</p>}
+        <h2 style={{ fontWeight: "normal" }}>
+          check <em>hoe flexbox</em> een site is:
+        </h2>
 
-      {error && <p style={{ color: "#ff4c4c" }}>{error}</p>}
+        <form
+          style={{ marginBottom: "3rem" }}
+          onSubmit={e => {
+            e.preventDefault();
 
-      {results && (
-        <>
-          <h2 style={{ fontWeight: "normal" }}>
-            de resultaten voor{" "}
-            <a href={resultsUrl} target="_blank" style={{ color: "#eee" }}>
-              {resultsUrl}
-            </a>
-            :
-          </h2>
+            if (
+              !formUrl.startsWith("https://") &&
+              !formUrl.startsWith("http://")
+            ) {
+              setError("URL moet met http:// of https:// beginnen");
+              return;
+            }
 
-          <div
-            style={{
-              fontSize: "2rem",
-              color: colormap(
-                Number(
+            setResultsUrl(formUrl);
+          }}
+        >
+          <input
+            style={{ width: "60%" }}
+            placeholder="URL"
+            value={formUrl}
+            onChange={e => {
+              setFormUrl(e.target.value);
+            }}
+          />
+          <button>alles flexbox?</button>
+        </form>
+
+        {isLoading && <p>aan 't laden ...</p>}
+
+        {error && <p style={{ color: "#ff4c4c" }}>{error}</p>}
+
+        {results && (
+          <>
+            <h2 style={{ fontWeight: "normal" }}>
+              de resultaten voor{" "}
+              <a href={resultsUrl} target="_blank" style={{ color: "#eee" }}>
+                {resultsUrl}
+              </a>
+              :
+            </h2>
+
+            <div
+              style={{
+                fontSize: "2rem",
+                color: colormap(
+                  Number(
+                    (
+                      results.filter(
+                        element =>
+                          element.isFlexChild ||
+                          element.isFlexContainer ||
+                          element.isDistantFlexChild
+                      ).length / results.length
+                    ).toFixed(2)
+                  )
+                )
+              }}
+            >
+              <CountUp
+                end={Number(
                   (
-                    results.filter(
+                    (results.filter(
                       element =>
                         element.isFlexChild ||
                         element.isFlexContainer ||
                         element.isDistantFlexChild
-                    ).length / results.length
+                    ).length /
+                      results.length) *
+                    100
                   ).toFixed(2)
-                )
-              )
-            }}
-          >
-            <CountUp
-              end={Number(
-                (
+                )}
+                suffix={"% flexbox"}
+              />
+            </div>
+
+            <dl style={{ marginBottom: "2rem" }}>
+              <dt>DOM-elementen</dt>
+              <dd>{results.length} stuks</dd>
+
+              <dt>flex containers</dt>
+              <dd>
+                {results.filter(element => element.isFlexContainer).length}{" "}
+                stuks (
+                {(
+                  (results.filter(element => element.isFlexContainer).length /
+                    results.length) *
+                  100
+                ).toFixed(2)}
+                %)
+              </dd>
+
+              <dt>flex children</dt>
+              <dd>
+                {results.filter(element => element.isFlexChild).length} stuks (
+                {(
+                  (results.filter(element => element.isFlexChild).length /
+                    results.length) *
+                  100
+                ).toFixed(2)}
+                %)
+              </dd>
+
+              <dt>
+                flex child <em>en</em> flex container{" "}
+                <sup>de echte pareltjes ✨</sup>
+              </dt>
+              <dd>
+                {
+                  results.filter(
+                    element => element.isFlexChild && element.isFlexContainer
+                  ).length
+                }{" "}
+                stuks (
+                {(
+                  (results.filter(
+                    element => element.isFlexChild && element.isFlexContainer
+                  ).length /
+                    results.length) *
+                  100
+                ).toFixed(2)}
+                %)
+              </dd>
+
+              <dt>indirecte flex children</dt>
+              <dd>
+                {results.filter(element => element.isDistantFlexChild).length}{" "}
+                stuks (
+                {(
+                  (results.filter(element => element.isDistantFlexChild)
+                    .length /
+                    results.length) *
+                  100
+                ).toFixed(2)}
+                %)
+              </dd>
+
+              <dt>
+                <em>noch</em> flex child <em>noch</em> indirect flex child{" "}
+                <em>noch</em> flex container <sup>boooo, optyfen gauw 🖕🏻</sup>
+              </dt>
+              <dd>
+                {
+                  results.filter(
+                    element =>
+                      !element.isFlexChild &&
+                      !element.isFlexContainer &&
+                      !element.isDistantFlexChild
+                  ).length
+                }{" "}
+                stuks (
+                {(
+                  (results.filter(
+                    element =>
+                      !element.isFlexChild &&
+                      !element.isFlexContainer &&
+                      !element.isDistantFlexChild
+                  ).length /
+                    results.length) *
+                  100
+                ).toFixed(2)}
+                %)
+              </dd>
+
+              <dt>
+                flex child <em>of</em> indirect flex child <em>of</em> flex
+                container <sup>🥰</sup>
+              </dt>
+              <dd>
+                {
+                  results.filter(
+                    element =>
+                      element.isFlexChild ||
+                      element.isFlexContainer ||
+                      element.isDistantFlexChild
+                  ).length
+                }{" "}
+                stuks (
+                {(
                   (results.filter(
                     element =>
                       element.isFlexChild ||
@@ -185,128 +311,21 @@ export default () => {
                   ).length /
                     results.length) *
                   100
-                ).toFixed(2)
-              )}
-              suffix={"% flexbox"}
-            />
-          </div>
+                ).toFixed(2)}
+                %)
+              </dd>
+            </dl>
 
-          <dl>
-            <dt>DOM-elementen</dt>
-            <dd>{results.length} stuks</dd>
+            <h2 style={{ fontWeight: "normal", marginBottom: "1rem" }}>
+              <a href={resultsUrl} target="_blank" style={{ color: "#eee" }}>
+                bekijk een screenshot
+              </a>
+            </h2>
 
-            <dt>flex containers</dt>
-            <dd>
-              {results.filter(element => element.isFlexContainer).length} stuks
-              (
-              {(
-                (results.filter(element => element.isFlexContainer).length /
-                  results.length) *
-                100
-              ).toFixed(2)}
-              %)
-            </dd>
-
-            <dt>flex children</dt>
-            <dd>
-              {results.filter(element => element.isFlexChild).length} stuks (
-              {(
-                (results.filter(element => element.isFlexChild).length /
-                  results.length) *
-                100
-              ).toFixed(2)}
-              %)
-            </dd>
-
-            <dt>
-              flex child <em>en</em> flex container{" "}
-              <sup>de echte pareltjes ✨</sup>
-            </dt>
-            <dd>
-              {
-                results.filter(
-                  element => element.isFlexChild && element.isFlexContainer
-                ).length
-              }{" "}
-              stuks (
-              {(
-                (results.filter(
-                  element => element.isFlexChild && element.isFlexContainer
-                ).length /
-                  results.length) *
-                100
-              ).toFixed(2)}
-              %)
-            </dd>
-
-            <dt>indirecte flex children</dt>
-            <dd>
-              {results.filter(element => element.isDistantFlexChild).length}{" "}
-              stuks (
-              {(
-                (results.filter(element => element.isDistantFlexChild).length /
-                  results.length) *
-                100
-              ).toFixed(2)}
-              %)
-            </dd>
-
-            <dt>
-              <em>noch</em> flex child <em>noch</em> indirect flex child{" "}
-              <em>noch</em> flex container <sup>boooo, optyfen gauw 🖕🏻</sup>
-            </dt>
-            <dd>
-              {
-                results.filter(
-                  element =>
-                    !element.isFlexChild &&
-                    !element.isFlexContainer &&
-                    !element.isDistantFlexChild
-                ).length
-              }{" "}
-              stuks (
-              {(
-                (results.filter(
-                  element =>
-                    !element.isFlexChild &&
-                    !element.isFlexContainer &&
-                    !element.isDistantFlexChild
-                ).length /
-                  results.length) *
-                100
-              ).toFixed(2)}
-              %)
-            </dd>
-
-            <dt>
-              flex child <em>of</em> indirect flex child <em>of</em> flex
-              container <sup>🥰</sup>
-            </dt>
-            <dd>
-              {
-                results.filter(
-                  element =>
-                    element.isFlexChild ||
-                    element.isFlexContainer ||
-                    element.isDistantFlexChild
-                ).length
-              }{" "}
-              stuks (
-              {(
-                (results.filter(
-                  element =>
-                    element.isFlexChild ||
-                    element.isFlexContainer ||
-                    element.isDistantFlexChild
-                ).length /
-                  results.length) *
-                100
-              ).toFixed(2)}
-              %)
-            </dd>
-          </dl>
-        </>
-      )}
+            <p>groen is flexbox, rood is de duivel</p>
+          </>
+        )}
+      </div>
     </>
   );
 };
