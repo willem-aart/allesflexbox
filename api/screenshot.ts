@@ -59,9 +59,9 @@ export default async (request: NowRequest, response: NowResponse) => {
   //     });
   // });
 
-  const file = await page.screenshot({ fullPage: true });
+  const file = await page.screenshot({ fullPage: true, type: "jpeg" });
   response.statusCode = 200;
-  response.setHeader("Content-Type", "image/png");
+  response.setHeader("Content-Type", "image/jpeg");
   response.end(file);
 
   await browser.close();
