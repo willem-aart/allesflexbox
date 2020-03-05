@@ -317,7 +317,11 @@ export default () => {
             </dl>
 
             <h2 style={{ fontWeight: "normal", marginBottom: "1rem" }}>
-              <a href={resultsUrl} target="_blank" style={{ color: "#eee" }}>
+              <a
+                href={`/api/screenshot/?url=${resultsUrl}`}
+                target="_blank"
+                style={{ color: "#eee" }}
+              >
                 bekijk een screenshot
               </a>
             </h2>
