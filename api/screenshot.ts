@@ -1,5 +1,5 @@
 import { NowRequest, NowResponse } from "@now/node";
-import chrome from "chrome-aws-lambda";
+import chrome, { defaultViewport } from "chrome-aws-lambda";
 import puppeteer from "puppeteer-core";
 
 export default async (request: NowRequest, response: NowResponse) => {
@@ -8,7 +8,8 @@ export default async (request: NowRequest, response: NowResponse) => {
   const browser = await puppeteer.launch({
     args: chrome.args,
     executablePath: await chrome.executablePath,
-    headless: chrome.headless
+    headless: chrome.headless,
+    defaultViewport: { width: 1200 }
   });
 
   const page = await browser.newPage();
