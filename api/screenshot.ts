@@ -8,8 +8,7 @@ export default async (request: NowRequest, response: NowResponse) => {
   const browser = await puppeteer.launch({
     args: chrome.args,
     executablePath: await chrome.executablePath,
-    headless: chrome.headless,
-    defaultViewport: { width: 1920, height: 1080 }
+    headless: chrome.headless
   });
 
   const page = await browser.newPage();
