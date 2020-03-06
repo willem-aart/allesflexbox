@@ -13,10 +13,9 @@ export default async (request: NowRequest, response: NowResponse) => {
 
   const page = await browser.newPage();
 
-  await Promise.race([
-    page.goto("https://example.com/", { waitUntil: "networkidle0" }),
-    page.waitFor("body")
-  ]);
+  await page.goto(url, {
+    waitUntil: "domcontentloaded"
+  });
 
   const result = await page.evaluate(() => {
     const elements = document.getElementsByTagName("*");
