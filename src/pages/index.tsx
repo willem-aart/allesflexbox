@@ -12,6 +12,7 @@ type ApiResult = {
 
 const GlobalStyle = createGlobalStyle`${css`
   body {
+    display: flex;
     font-family: "Comic Sans MS";
     background-color: #1f243e;
     color: #fff;
