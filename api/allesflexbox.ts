@@ -14,7 +14,7 @@ export default async (request: NowRequest, response: NowResponse) => {
   const page = await browser.newPage();
 
   await page.goto(url, {
-    waitUntil: "domcontentloaded"
+    waitUntil: "networkidle2"
   });
 
   const result = await page.evaluate(() => {
